@@ -1,10 +1,14 @@
 import './App.css';
 import About from './components/About';
+import Nav from './components/Nav';
+import Gallery from "./components/Gallery";
 
 function App() {
   return (
-    <div className="App">
+    <div className="">
+      <Nav></Nav>
       <main>
+        <Gallery></Gallery>
         <About></About>
       </main>
     </div>

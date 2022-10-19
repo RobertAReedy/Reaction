@@ -93,6 +93,8 @@ a:hover {
 
 header {
   background: var(--dark);
+  display: flex;
+  justify-content: space-between;
 }
 
 header a {
@@ -154,7 +156,7 @@ nav a:hover {
   text-decoration: none;
 }
 
-nav  li {
+nav li {
   cursor: pointer;
 }
 
