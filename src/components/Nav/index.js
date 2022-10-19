@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 
 function Nav() {
-  const [currentCategory, setCurrentCategory] = useState(categories[0]);
   const [categories] = useState([
     {
-      name: "Commercial",
-      description: "a commercial"
+      name: "Commercial", description: "a commercial"
     },
     {
       name: "Portraits", description: "these are portraits"
@@ -17,15 +15,16 @@ function Nav() {
       name: "Landscape", description: "a scape of land"
     }
   ]);
+  const [currentCategory, setCurrentCategory] = useState(categories[0]);
 
   function categorySelected(name) {
     console.log(name);
   }
 
   return (
-    <header>
+    <header className="flex-row px-1">
       <h2>
-        <a href="/">
+        <a href="/" data-testid="link">
           <span role="img" aria-label="camera">📸</span> Camera
         </a>
       </h2>
@@ -43,7 +42,7 @@ function Nav() {
               //map returns must have a key property in the outermost
               //component so the virtual DOM that React makes can
               //tell them apart
-              <li className="mx-1" key={category.name}>
+              <li className={`mx-1 ${currentCategory.name === category.name && 'navActive'}`} key={category.name}>
                 <span onClick={() => categorySelected(category.name)}>
                   {category.name}
                 </span>
