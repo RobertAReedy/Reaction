@@ -1,25 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { capitalizeFirstLetter } from "../../utils/helpers";
 
-function Nav() {
-  const [categories] = useState([
-    {
-      name: "Commercial", description: "a commercial"
-    },
-    {
-      name: "Portraits", description: "these are portraits"
-    },
-    {
-      name: "Food", description: "this is food I think"
-    },
-    {
-      name: "Landscape", description: "a scape of land"
-    }
-  ]);
-  const [currentCategory, setCurrentCategory] = useState(categories[0]);
+function Nav(props) {
+  const {
+    categories = [],
+    setCurrentCategory,
+    currentCategory,
+  } = props;
 
-  function categorySelected(name) {
-    console.log(name);
-  }
+  /**
+   * The second argument, an array with one element (in this case, 
+   * it can have more presumably), is what the useEffect is watching
+   * to see if there's a change. If there is, it runs the function
+   * in the first argument, and then reloads the component. 
+   */
+  useEffect(() => {
+    document.title = capitalizeFirstLetter(currentCategory.name);
+  }, [currentCategory]);
 
   return (
     <header className="flex-row px-1">
@@ -42,9 +39,15 @@ function Nav() {
               //map returns must have a key property in the outermost
               //component so the virtual DOM that React makes can
               //tell them apart
-              <li className={`mx-1 ${currentCategory.name === category.name && 'navActive'}`} key={category.name}>
-                <span onClick={() => categorySelected(category.name)}>
-                  {category.name}
+              <li className={`mx-1 
+                ${currentCategory.name === category.name && 'navActive'}`}
+                key={category.name}
+              >
+                <span onClick={() => {
+                  // document.title = category.name;
+                  setCurrentCategory(category);
+                }}>
+                  {capitalizeFirstLetter(category.name)}
                 </span>
               </li>
             );
