@@ -9,7 +9,7 @@ function Nav(props) {
   } = props;
 
   /**
-   * The second argument, an array with one element (in this case, 
+   * The second argument, an array with one element (in this case; 
    * it can have more presumably), is what the useEffect is watching
    * to see if there's a change. If there is, it runs the function
    * in the first argument, and then reloads the component. 
