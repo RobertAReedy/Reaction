@@ -6,6 +6,7 @@ import Gallery from "./components/Gallery";
 import Contact from './components/Contact';
 
 function App() {
+  const [contactSelected, setContactSelected] = useState(false);
   const [categories] = useState([
     {
       name: "Commercial", description: "a commercial"
@@ -28,11 +29,26 @@ function App() {
         categories={categories}
         setCurrentCategory={setCurrentCategory}
         currentCategory={currentCategory}
+        contactSelected={contactSelected}
+        setContactSelected={setContactSelected}
       ></Nav>
       <main>
-        <Contact></Contact>
-        <Gallery category={currentCategory}></Gallery>
-        <About></About>
+        {!contactSelected ? (
+          //below is a React fragment; as items inside
+          //a conditional have to have an all encompassing
+          //parent element
+          <> 
+            <Gallery category={currentCategory}></Gallery>
+            <About></About>
+          </>
+        ) : (
+          <>
+            <Contact></Contact>
+          </>
+        )
+
+        }
+        
       </main>
     </div>
   );

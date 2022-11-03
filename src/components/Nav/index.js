@@ -6,6 +6,8 @@ function Nav(props) {
     categories = [],
     setCurrentCategory,
     currentCategory,
+    contactSelected,
+    setContactSelected
   } = props;
 
   /**
@@ -29,10 +31,19 @@ function Nav(props) {
       <nav>
         <ul className="flex-row">
           <li className="mx-2">
-            <a href="#about">About Me</a>
+            <a href="#about"onClick={() => {
+              setContactSelected(false);
+            }}>About Me</a>
           </li>
-          <li className="mx-1">
-            <span>Contact</span>
+          <li className={`mx-1 ${contactSelected && "navActive"}`}>
+            <span onClick={() => {
+              if (contactSelected) {setContactSelected(false);}
+              else {
+                setContactSelected(true);
+              }
+            }}>
+              Contact
+            </span>
           </li>
           {categories.map((category) => {
             return (
@@ -40,11 +51,12 @@ function Nav(props) {
               //component so the virtual DOM that React makes can
               //tell them apart
               <li className={`mx-1 
-                ${currentCategory.name === category.name && 'navActive'}`}
+                ${currentCategory.name === category.name && !contactSelected && 'navActive'}`}
                 key={category.name}
               >
                 <span onClick={() => {
                   // document.title = category.name;
+                  setContactSelected(false);
                   setCurrentCategory(category);
                 }}>
                   {capitalizeFirstLetter(category.name)}
