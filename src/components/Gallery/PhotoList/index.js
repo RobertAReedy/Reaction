@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Modal from "./Model";
 import { capitalizeFirstLetter } from "../../../utils/helpers";
 
 function PhotoList({ category }) {
@@ -99,20 +100,26 @@ function PhotoList({ category }) {
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ultricie',
     },
   ]);
-
+  const [currentPhoto, setCurrentPhoto] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const filteredPhotos = photos.filter((photo) => { return capitalizeFirstLetter(photo.category) === category});
-  console.log(category);
-  console.log(filteredPhotos);
-  console.log()
+
+  function toggleModal(image, i) {
+    setCurrentPhoto({...image, index: i});
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="flex-row">
+      {isModalOpen && <Modal currentPhoto={currentPhoto} setIsModalOpen={setIsModalOpen} />}
       {filteredPhotos.map((image, i) => (
         <img 
           src={require(`../../../assets/small/${image.category.toLowerCase()}/${i}.jpg`)}
           alt={image.name}
           className="img-thumbnail mx-1"
           key={image.name}
+          onClick={() => toggleModal(image, i)}
         />
       ))}
       
